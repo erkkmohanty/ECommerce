@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.ServiceFabric.Services.Runtime;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace ECommerce.ProductCatalog
+namespace ECommerce.API
 {
     internal static class Program
     {
@@ -20,12 +20,12 @@ namespace ECommerce.ProductCatalog
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
-                ServiceRuntime.RegisterServiceAsync("ECommerce.ProductCatalogType",
-                    context => new ProductCatalog(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("ECommerce.APIType",
+                    context => new API(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(ProductCatalog).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(API).Name);
 
-                // Prevents this host process from terminating so services keep running.
+                // Prevents this host process from terminating so services keeps running. 
                 Thread.Sleep(Timeout.Infinite);
             }
             catch (Exception e)
